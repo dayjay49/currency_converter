@@ -13,6 +13,7 @@ import com.google.cloud.vision.v1.Image;
 import com.google.cloud.vision.v1.ImageAnnotatorClient;
 import com.google.protobuf.ByteString;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -34,8 +35,13 @@ public class PictureScanner {
 
 
     }
-    public String getText(byte[] data){
-        ByteString imgBytes = ByteString.copyFrom(data);
+    public int getPrice(String filePath){
+        ByteString imgBytes = null;
+        try {
+            imgBytes = ByteString.readFrom(new FileInputStream(filePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Builds the image annotation request
         List<AnnotateImageRequest> requests = new ArrayList<>();
@@ -48,7 +54,7 @@ public class PictureScanner {
         requests.add(request);
         BatchAnnotateImagesResponse response = vision.batchAnnotateImages(requests);
         List<AnnotateImageResponse> responses = response.getResponsesList();
-
+        String ans="";
         for (AnnotateImageResponse res : responses) {
             if (res.hasError()) {
                 System.out.printf("Error: %s\n", res.getError().getMessage());
@@ -56,10 +62,15 @@ public class PictureScanner {
             }
 
             for (EntityAnnotation annotation : res.getLabelAnnotationsList()) {
-                System.out.println(annotation.getDescription());
+                ans+=annotation.getDescription();
             }
         }
-        return "";
+        try{
+            return Integer.parseInt(ans);
+        }catch (Exception e){
+            //do something
+        }
+        return -1;
 
     }
 
