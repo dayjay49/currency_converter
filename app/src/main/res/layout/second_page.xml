@@ -21,20 +21,43 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="190dp"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:id="@+id/country_name"/>-->
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Activity 2"
-        android:layout_marginTop="190dp"
+        android:text="Convert Now"
+        android:layout_below="@+id/crop_option"
         android:layout_centerHorizontal="true"
-        android:id="@+id/textView"/>
+        android:id="@+id/convert_button"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Crop Image"
+        android:layout_below="@+id/image"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/crop_option"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go back"
+        android:layout_below="@+id/convert_button"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/back_button"/>
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="275dp"
-        android:layout_height="275dp"
-        android:layout_centerVertical="true"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
         android:layout_centerHorizontal="true"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_centerVertical="true"
+        android:id="@+id/image"
+        android:src="@mipmap/ic_launcher"/>
 
 </RelativeLayout>

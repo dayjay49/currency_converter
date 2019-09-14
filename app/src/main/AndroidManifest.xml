@@ -26,6 +26,10 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".Activity2"
+            android:label="second_page" >
+        </activity>
     </application>
 
 </manifest>

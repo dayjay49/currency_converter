@@ -26,7 +26,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-//    private static final String TAG = "FirstScreen";
     private Button button;
     private ImageView imageView;
 
@@ -132,53 +131,36 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-//        private ImageView camera_image;
-//        camera_image = imageView;
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (resultCode == RESULT_OK) {
             // user is returning from capturing an image using the camera
             if(requestCode == CAMERA_CAPTURE){
                 // get the Uri for the captured image
                 Uri uri = picUri;
-                performCrop();
-                Log.d("picUri", uri.toString());
-            } //user is returning from cropping the image
-            else if(requestCode == PIC_CROP){
-                //get the returned data
-                Bundle extras = data.getExtras();
-                //get the cropped bitmap
-                Bitmap thePic = (Bitmap) extras.get("data");
-                //display the returned cropped image
-                imageView.setImageBitmap(thePic);
-            }
-        }
-    }
 
-    private void performCrop() {
-        try {
-            //call the standard crop action intent (the user device may not support it)
-            Intent cropIntent = new Intent("com.android.camera.action.CROP");
-            //indicate image type and Uri
-            cropIntent.setDataAndType(picUri, "image/*");
-            //set crop properties
-            cropIntent.putExtra("crop", "true");
-            //indicate aspect of desired crop
-            cropIntent.putExtra("aspectX", 1);
-            cropIntent.putExtra("aspectY", 1);
-            //indicate output X and Y
-            cropIntent.putExtra("outputX", 256);
-            cropIntent.putExtra("outputY", 256);
-            //retrieve data on return
-            cropIntent.putExtra("return-data", true);
-            //start the activity - we handle returning in onActivityResult
-            startActivityForResult(cropIntent, PIC_CROP);
-        }
-        catch(ActivityNotFoundException e){
-            //display an error message
-            String errorMessage = "This device does not support the crop action.";
-            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+                // ADD COUNTRY NAME STRING TOGETHER LATER
+                Intent intent = new Intent(this, Activity2.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable("country_name", COUNTRY_NAME);
+//                bundle.putParcelable("price_image", uri);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+                intent.putExtra("imageUri", uri);
+                startActivity(intent);
+
+//                performCrop();
+//                Log.d("picUri", uri.toString());
+            } //user is returning from cropping the image
+//            else if(requestCode == PIC_CROP){
+//                //get the returned data
+//                Bundle extras = data.getExtras();
+//                //get the cropped bitmap
+//                Bitmap thePic = (Bitmap) extras.get("data");
+//                // transfer image to next page
+//
+//                intent.putExtra("BitmapImage", thePic);
+//            }
         }
     }
 
