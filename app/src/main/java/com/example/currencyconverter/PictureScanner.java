@@ -35,7 +35,7 @@ public class PictureScanner {
 
 
     }
-    public int getPrice(String filePath){
+    public double getPrice(String filePath){
         ByteString imgBytes = null;
         try {
             imgBytes = ByteString.readFrom(new FileInputStream(filePath));
@@ -66,7 +66,7 @@ public class PictureScanner {
             }
         }
         try{
-            return Integer.parseInt(ans);
+            return Double.parseDouble(ans);
         }catch (Exception e){
             //do something
         }
