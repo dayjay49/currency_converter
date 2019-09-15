@@ -79,12 +79,6 @@ public class Activity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                // convert uri to FirebaseVisionImage
-                try {
-                    final_image = FirebaseVisionImage.fromFilePath(Activity2.this, picUri);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
 //                runTextRecog();
 
                 // send double and country codes
@@ -108,8 +102,7 @@ public class Activity2 extends AppCompatActivity {
             }
         }
 
-        final_image = FirebaseVisionImage.fromBitmap(thePic);
-//        runTextRecog();
+//        runTextRecogCropped();
 
         // move to last page
         Intent intent = new Intent(Activity2.this, Activity3.class);
@@ -152,6 +145,13 @@ public class Activity2 extends AppCompatActivity {
 
     private void runTextRecog() {
 
+        // convert uri to FirebaseVisionImage
+        try {
+            final_image = FirebaseVisionImage.fromFilePath(Activity2.this, picUri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
 
         // detects FirebaseVisionText from a FirebaseVisionImage
@@ -166,6 +166,28 @@ public class Activity2 extends AppCompatActivity {
                 Toast.makeText(Activity2.this, "Exception", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void runTextRecogCropped() {
+
+        // convert uri to FirebaseVisionImage
+        final_image = FirebaseVisionImage.fromBitmap(thePic);
+
+        FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
+
+        // detects FirebaseVisionText from a FirebaseVisionImage
+        detector.processImage(final_image).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
+            @Override
+            public void onSuccess(FirebaseVisionText texts) {
+                processExtractedText(texts);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(Activity2.this, "Exception", Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
     private void processExtractedText(FirebaseVisionText firebaseVisionText) {
