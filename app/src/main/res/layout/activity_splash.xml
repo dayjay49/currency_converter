@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6FAFA"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_marginTop="100dp"
+        android:id="@+id/gif_image"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="40sp"
+        android:textColor="#ff7c00"
+        android:text="Travel CC"
+        android:textStyle="bold"/>
+
+</LinearLayout>

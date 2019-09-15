@@ -89,7 +89,8 @@ public class Activity2 extends AppCompatActivity {
         }
 
         // move to last page
-        Intent intent = new Intent(Activity2.this, Activity3.class);//                Bundle bundle = new Bundle();
+        Intent intent = new Intent(Activity2.this, Activity3.class);
+//        Bundle bundle = new Bundle();
 //        bundle.putParcelable("country_name", COUNTRY_NAME);
 //        bundle.putParcelable("price_image", uri);
 //        intent.putExtras(bundle);

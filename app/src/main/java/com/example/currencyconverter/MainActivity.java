@@ -6,21 +6,15 @@ import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +23,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private ImageButton button;
-//    private ImageView imageView;
 
     // keep track of camera capture intent
     final int CAMERA_CAPTURE = 1;
@@ -38,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
     public EditText home_country;
     public EditText curr_travelling;
-
 
     String[] permission_list = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -69,9 +61,7 @@ public class MainActivity extends AppCompatActivity {
             int check = checkCallingOrSelfPermission(permission);
 
             if(check == PackageManager.PERMISSION_DENIED){
-                //권한 허용을여부를 확인하는 창을 띄운다
                 PermissionRqList.add(permission);
-                //requestPermissions(permission_list,0);
             }
         }
         if(!PermissionRqList.isEmpty()){
@@ -180,4 +170,8 @@ public class MainActivity extends AppCompatActivity {
             back_pressed = System.currentTimeMillis();
         }
     }
+
 }
+
+
+
