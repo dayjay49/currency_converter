@@ -14,6 +14,7 @@ import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Base64;
 
+//Deprecated
 public class XERequest {
 
     public static double GetConvertedCurrency(String convertFrom, String convertTo, double amount) throws IOException {
@@ -25,6 +26,8 @@ public class XERequest {
         String userpass = "hackthenorth948103889:1u305t9u90k1f1hnqeppmb5heo";
         String basicAuth = "Basic :" + new String(Base64.getEncoder().encode(userpass.getBytes()));
         connection.setRequestProperty ("Authorization", basicAuth);
+        connection.setConnectTimeout(5000);
+        connection.setReadTimeout(5000);
         int responseCode = connection.getResponseCode();
         if (responseCode == HttpURLConnection.HTTP_OK) {
             BufferedReader in = new BufferedReader(

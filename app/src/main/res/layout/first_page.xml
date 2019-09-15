@@ -37,7 +37,23 @@
         android:layout_centerHorizontal="true"
         android:text="OPEN CAMERA" />
 
-<!--    <ImageView-->
+    <TextView
+        android:id="@+id/response_from_https"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="Hiii" />
+
+    <Button
+        android:id="@+id/https_test_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="-213dp"
+        android:text="testhttp"
+        android:onClick="sendRequestToXE"/>
+
+    <!--    <ImageView-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
 <!--        android:id="@+id/imageView"-->
