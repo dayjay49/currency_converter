@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,17 +27,29 @@ public class Activity3 extends AppCompatActivity {
     private String home_country_code;
     private String travel_country_code;
     private double converted_price;
+    private Button retake_pic;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.third_page);
 
+        retake_pic = (Button) findViewById(R.id.retake);
+
 //        Intent intent = getIntent();
 // ADD MORE LINES RECEIVING INTENT
 
         new GetUrlContentTask().execute(new XEGetParams(home_country_code,
                 travel_country_code, converted_price));
+
+        retake_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Activity3.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
     }
 
     //region XE API
