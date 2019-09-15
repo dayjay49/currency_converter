@@ -16,6 +16,8 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -26,15 +28,16 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button button;
-    private ImageView imageView;
+    private ImageButton button;
+//    private ImageView imageView;
 
     // keep track of camera capture intent
     final int CAMERA_CAPTURE = 1;
     // captured picture uri
     private Uri picUri;
-    // keep track of cropping intent
-    final int PIC_CROP = 3;
+
+    public EditText home_country;
+    public EditText curr_travelling;
 
 
     String[] permission_list = {
@@ -48,8 +51,10 @@ public class MainActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_page);
-        button = (Button) findViewById(R.id.camera_button);
-        imageView = (ImageView) findViewById(R.id.imageView);
+        button = (ImageButton) findViewById(R.id.camera_button);
+//        imageView = (ImageView) findViewById(R.id.imageView);
+        home_country = (EditText) findViewById(R.id.edt_home_country);
+        curr_travelling = (EditText) findViewById(R.id.edt_travelling);
 
         //Initialize Service
         checkPermission();

@@ -17,13 +17,14 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Activity2 extends AppCompatActivity {
 
     public String COUNTRY_NAME;
+    public Bitmap thePic;
     private Uri picUri;
     // keep track of cropping intent
     final int PIC_CROP = 3;
     private ImageView image;
     private Button crop_button;
     private Button convert_button;
-    private Button back_button;
+    private Button retake_button;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class Activity2 extends AppCompatActivity {
         image = (ImageView) findViewById(R.id.image);
         crop_button = (Button) findViewById(R.id.crop_option);
         convert_button = (Button) findViewById(R.id.convert_button);
-        back_button = (Button) findViewById(R.id.back_button);
+        retake_button = (Button) findViewById(R.id.retake);
 
 //        TextView textView = (TextView) findViewById(R.id.country_name);
 //        textView.setText(COUNTRY_NAME);
@@ -44,7 +45,7 @@ public class Activity2 extends AppCompatActivity {
 
         image.setImageURI(picUri);
 
-        back_button.setOnClickListener(new View.OnClickListener() {
+        retake_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Activity2.this, MainActivity.class);
@@ -60,14 +61,19 @@ public class Activity2 extends AppCompatActivity {
             }
         });
 
-//        convert_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(Activity2.this, Activity3.class);
-////                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        convert_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Activity2.this, Activity3.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable("country_name", COUNTRY_NAME);
+//                bundle.putParcelable("price_image", uri);
+//                intent.putExtras(bundle);
 //                startActivity(intent);
-//            }
-//        });
+                intent.putExtra("convertUri", picUri);
+                startActivity(intent);
+            }
+        });
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -81,6 +87,15 @@ public class Activity2 extends AppCompatActivity {
                 image.setImageBitmap(thePic);
             }
         }
+
+        // move to last page
+        Intent intent = new Intent(Activity2.this, Activity3.class);//                Bundle bundle = new Bundle();
+//        bundle.putParcelable("country_name", COUNTRY_NAME);
+//        bundle.putParcelable("price_image", uri);
+//        intent.putExtras(bundle);
+//        startActivity(intent);
+        intent.putExtra("convertUri", picUri);
+        startActivity(intent);
     }
 
     private void performCrop() {
