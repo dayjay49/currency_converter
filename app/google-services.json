@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "367634644162",
+    "firebase_url": "https://travel-cc-number-recognition.firebaseio.com",
+    "project_id": "travel-cc-number-recognition",
+    "storage_bucket": "travel-cc-number-recognition.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367634644162:android:31fb3bd8f3a9fe59040f5b",
+        "android_client_info": {
+          "package_name": "com.example.currencyconverter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "367634644162-3j1r5ickspvi7aul38kognd2cncb1776.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.currencyconverter",
+            "certificate_hash": "1a62dae7f4999721fc9d603bc8d31595b43f3241"
+          }
+        },
+        {
+          "client_id": "367634644162-l8of07538rum3fmjh48e8jvpm2v6afkf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTjKD-rMF9NXgUMTn59ACm7SopmJkV6g4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "367634644162-l8of07538rum3fmjh48e8jvpm2v6afkf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

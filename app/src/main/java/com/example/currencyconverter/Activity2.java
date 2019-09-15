@@ -12,11 +12,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.text.FirebaseVisionText;
+import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
+
+import java.io.IOException;
+
+import java.util.regex.*;
 
 public class Activity2 extends AppCompatActivity {
 
-    public String COUNTRY_NAME;
     public Bitmap thePic;
     private Uri picUri;
     // keep track of cropping intent
@@ -25,6 +36,12 @@ public class Activity2 extends AppCompatActivity {
     private Button crop_button;
     private Button convert_button;
     private Button retake_button;
+
+    private String home_country_code;
+    private String travel_country_code;
+    private String price_to_convert;
+
+    public FirebaseVisionImage final_image;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,9 +52,6 @@ public class Activity2 extends AppCompatActivity {
         crop_button = (Button) findViewById(R.id.crop_option);
         convert_button = (Button) findViewById(R.id.convert_button);
         retake_button = (Button) findViewById(R.id.retake);
-
-//        TextView textView = (TextView) findViewById(R.id.country_name);
-//        textView.setText(COUNTRY_NAME);
 
         Intent intent = getIntent();
         picUri = intent.getParcelableExtra("imageUri");
@@ -64,13 +78,19 @@ public class Activity2 extends AppCompatActivity {
         convert_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // convert uri to FirebaseVisionImage
+                try {
+                    final_image = FirebaseVisionImage.fromFilePath(Activity2.this, picUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+//                runTextRecog();
+
+                // send double and country codes
                 Intent intent = new Intent(Activity2.this, Activity3.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("country_name", COUNTRY_NAME);
-//                bundle.putParcelable("price_image", uri);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-                intent.putExtra("convertUri", picUri);
+//                intent.putExtra("codesAndPrice", home_country_code + "/" + travel_country_code + "/" + price_to_convert);
+                intent.putExtra("codesAndPrice", "CAD" + "/" + "USD" + "/" + price_to_convert);
                 startActivity(intent);
             }
         });
@@ -88,6 +108,9 @@ public class Activity2 extends AppCompatActivity {
             }
         }
 
+        final_image = FirebaseVisionImage.fromBitmap(thePic);
+//        runTextRecog();
+
         // move to last page
         Intent intent = new Intent(Activity2.this, Activity3.class);
 //        Bundle bundle = new Bundle();
@@ -95,7 +118,9 @@ public class Activity2 extends AppCompatActivity {
 //        bundle.putParcelable("price_image", uri);
 //        intent.putExtras(bundle);
 //        startActivity(intent);
-        intent.putExtra("convertUri", picUri);
+//        intent.putExtra("convertUri", picUri);
+//        intent.putExtra("codesAndPrice", home_country_code + "/" + travel_country_code + "/" + price_to_convert);
+        intent.putExtra("codesAndPrice", "CAD" + "/" + "USD" + "/" + price_to_convert);
         startActivity(intent);
     }
 
@@ -124,4 +149,41 @@ public class Activity2 extends AppCompatActivity {
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void runTextRecog() {
+
+        FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
+
+        // detects FirebaseVisionText from a FirebaseVisionImage
+        detector.processImage(final_image).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
+            @Override
+            public void onSuccess(FirebaseVisionText texts) {
+                processExtractedText(texts);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(Activity2.this, "Exception", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void processExtractedText(FirebaseVisionText firebaseVisionText) {
+        String extractedText;
+
+        if (firebaseVisionText.getTextBlocks().size() == 0) {
+            price_to_convert = "-1";
+            return;
+        }
+//        for (FirebaseVisionText.Block block : firebaseVisionText.getBlocks()) {
+//            myTextView.append(block.getText());
+//
+//        }
+        extractedText = firebaseVisionText.getText();
+
+        Pattern p = Pattern.compile("^\\d*\\.\\d+|\\d+\\.\\d*$|\\d");
+        Matcher m = p.matcher(extractedText);
+        price_to_convert = m.group(0);
+    }
 }
+

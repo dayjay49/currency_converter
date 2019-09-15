@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_page);
         button = (ImageButton) findViewById(R.id.camera_button);
-//        imageView = (ImageView) findViewById(R.id.imageView);
         home_country = (EditText) findViewById(R.id.edt_home_country);
         curr_travelling = (EditText) findViewById(R.id.edt_travelling);
 
@@ -136,26 +135,10 @@ public class MainActivity extends AppCompatActivity {
 
                 // ADD COUNTRY NAME STRING TOGETHER LATER
                 Intent intent = new Intent(this, Activity2.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("country_name", COUNTRY_NAME);
-//                bundle.putParcelable("price_image", uri);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
                 intent.putExtra("imageUri", uri);
                 startActivity(intent);
 
-//                performCrop();
-//                Log.d("picUri", uri.toString());
-            } //user is returning from cropping the image
-//            else if(requestCode == PIC_CROP){
-//                //get the returned data
-//                Bundle extras = data.getExtras();
-//                //get the cropped bitmap
-//                Bitmap thePic = (Bitmap) extras.get("data");
-//                // transfer image to next page
-//
-//                intent.putExtra("BitmapImage", thePic);
-//            }
+            }
         }
     }
 

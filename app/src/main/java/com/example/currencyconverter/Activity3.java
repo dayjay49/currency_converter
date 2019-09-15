@@ -24,6 +24,7 @@ import java.util.Base64;
 
 public class Activity3 extends AppCompatActivity {
 
+    private String codes_and_price;
     private String home_country_code;
     private String travel_country_code;
     private double converted_price;
@@ -39,8 +40,14 @@ public class Activity3 extends AppCompatActivity {
 //        Intent intent = getIntent();
 // ADD MORE LINES RECEIVING INTENT
 
-        new GetUrlContentTask().execute(new XEGetParams(home_country_code,
-                travel_country_code, converted_price));
+        Bundle bundle = getIntent().getExtras();
+        String codesAndPrice = bundle.getString("codesAndPrice");
+
+//        new GetUrlContentTask().execute(new XEGetParams(home_country_code,
+//                travel_country_code, converted_price));
+        new GetUrlContentTask().execute(new XEGetParams("CAD",
+                "USD", 10.00));
+
 
         retake_pic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +66,7 @@ public class Activity3 extends AppCompatActivity {
     public void updateTextView(String toThis) {
         //TODO: Change id
         TextView textView = findViewById(R.id.converted_price);
-        textView.setText(toThis + home_country_code);
+        textView.setText(toThis + " CAD");
     }
     private static class XEGetParams {
         String convertFrom;
