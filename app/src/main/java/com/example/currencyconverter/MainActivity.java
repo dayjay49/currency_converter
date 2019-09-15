@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_page);
-        button = (Button) findViewById(R.id.camera_button);
-        imageView = (ImageView) findViewById(R.id.imageView);
+        button = findViewById(R.id.camera_button);
+        imageView = findViewById(R.id.imageView);
 
         //Initialize Service
         checkPermission();
@@ -82,8 +82,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode==0)
-        {
+        if(requestCode==0) {
             if(grantResults.length > 0) {
                 for (int i = 0; i < grantResults.length; i++) {
                     // permissions granted?
